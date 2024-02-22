@@ -7,10 +7,18 @@ class BasicModel(Model):
     def _define_model(self, input_shape, categories_count):
         self.model = Sequential([
             Rescaling(1./255, input_shape=input_shape),
-            layers.Conv2D(2, (3, 3), activation='relu'),
+            #layer 1
+            layers.Conv2D(4, (3, 3), activation='relu'),
             layers.MaxPooling2D((2, 2)),
+            #layer 2
+            layers.Conv2D(8, (3, 3), activation='relu'),
+            layers.MaxPooling2D((2, 2)),
+            #layer 3
+            layers.Conv2D(16, (3, 3), activation='relu'),
+            layers.MaxPooling2D((2, 2)),
+            #flatten layers
             layers.Flatten(),
-            layers.Dense(4, activation='relu'),
+            layers.Dense(32, activation='relu'),
             layers.Dense(categories_count, activation='softmax')
         ])
     
