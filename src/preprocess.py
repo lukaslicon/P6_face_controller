@@ -12,7 +12,6 @@ def _split_data(train_directory, test_directory, batch_size, validation_split):
         validation_split=validation_split,
         subset="both",
         seed=47,
-        rescale=1./255  # Explicitly normalize to [0, 1]
     )
     print('test dataset:')
     test_dataset = image_dataset_from_directory(
@@ -22,7 +21,6 @@ def _split_data(train_directory, test_directory, batch_size, validation_split):
         batch_size=batch_size,
         image_size=image_size,
         shuffle=False,
-        rescale=1./255  # Explicitly normalize to [0, 1]
     )
 
     return train_dataset, validation_dataset, test_dataset
