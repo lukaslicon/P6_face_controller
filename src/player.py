@@ -105,10 +105,13 @@ class UserWebcamPlayer:
         #
         # You have to use your saved model, use resized img as input, and get one classification value out of it
         # The classification value should be 0, 1, or 2 for neutral, happy or surprise respectively
-
+        my_model = models.load_model('results/basic_model_20_epochs_timestamp_1708644495.keras')
+        resized_img = np.resize(img, (image_size[0], image_size[1], 3)).reshape(150, 150, 3)
+        resized_img = np.expand_dims(resized_img, axis=0)
+        result = my_model.predict(resized_img)
         # return an integer (0, 1 or 2), otherwise the code will throw an error
-        return 1
-        pass
+        print(result)
+        return int(np.argmax(result[0]))
     
     def get_move(self, board_state):
         row, col = None, None
