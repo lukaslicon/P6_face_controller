@@ -6,16 +6,15 @@ from tensorflow.keras.optimizers import RMSprop, Adam
 
 class RandomModel(Model):
     def _define_model(self, input_shape, categories_count):
-        basic_model = models.load_model('results/basic_model_10_epochs_timestamp_1708659836.keras')
-        basic_model.trainable = False
+        basic_model = models.load_model('results/basic_model_100_epochs_timestamp_1708669386.keras')
         self._randomize_layers(basic_model)
 
         self.model = Sequential()
         for i, layer in enumerate(basic_model.layers[:-1]):
             if isinstance(layer, layers.Dense):
-                self.model.add(layers.Dense(64, activation='relu', name=f'dense_{i}'))
+                self.model.add(layers.Dense(64, activation='relu', name=f'dense_{i}', trainable = False))
             elif isinstance(layer, layers.Dropout):
-                self.model.add(layers.Dropout(0.5, name=f'dropout_{i}'))
+                self.model.add(layers.Dropout(0.5, name=f'dropout_{i}', trainable = False))
             else:
                 self.model.add(layer)
 
